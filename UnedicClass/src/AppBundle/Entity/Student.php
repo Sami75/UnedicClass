@@ -14,6 +14,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Student
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Department", inversedBy="students")
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
+     * @Assert\NotBlank(message="La classe  est obligatoire")
+     *
+     */
+    private $department;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="NumEtud", type="integer")
@@ -29,6 +37,7 @@ class Student
      * @ORM\Column(name="FirstName", type="string", length=25)
      *
      * @Assert\NotBlank(message="Le prénom est obligatoire")
+     *
      */
     private $firstName;
 
@@ -38,6 +47,7 @@ class Student
      * @ORM\Column(name="LastName", type="string", length=25)
      *
      * @Assert\NotBlank(message="Le nom est obligatoire")
+     *
      */
     private $lastName;
 
@@ -97,6 +107,30 @@ class Student
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * Set department
+     *
+     * @param integer $department_id
+     *
+     * @return Student
+     */
+    public function setDepartment($department_id)
+    {
+        $this->department = $department_id;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return integer
+     */
+    public function getDepartment()
+    {
+        return $this->department;
     }
 }
 

@@ -3,11 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Student;
+use AppBundle\Entity\Department;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class StudentController extends Controller
 {
@@ -18,12 +19,22 @@ class StudentController extends Controller
     {
         $student = new Student();
 
+        $departments = array();
+        $departments = $this->getDoctrine()->getRepository(Department::class)->findAll();
+
         $form = $this->createFormBuilder($student)
         ->add('firstname', TextType::class)
         ->add('lastname', TextType::class)
+        ->add('department', EntityType::class, array(
+            'class'=>'AppBundle:Department',
+            'choice_label'=>'name',
+            'expanded'=>false,
+            'multiple'=>false,
+        ))
         ->getForm();
 
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -35,7 +46,7 @@ class StudentController extends Controller
         }
 
         return $this->render('student/formCreate.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(), 'departments' => $departments,
         ));
     }
 

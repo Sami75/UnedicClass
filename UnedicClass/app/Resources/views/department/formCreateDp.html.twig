@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Création d'une classe</h3></div>
+
+                <div class="panel-body text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-2">
+
+                                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                                <div class="form-group">
+                                    {% set class = '' %}
+                                    {% if not form.name.vars.valid %}
+                                        {% set class = 'has-error' %}
+                                    {% endif %}
+                                    <input type="text" class="form-control" id="{{ form.name.vars.id}}" name="{{ form.name.vars.full_name }}" value="{{ form.name.vars.value }}" placeholder="Nom" >
+
+                                    {% do form.name.setRendered %}
+
+                                    {% if not form.name.vars.valid %}
+                                        {% for error in form.name.vars.errors %}
+                                            <p class="help-block">{{ error.message }}</p>
+                                        {% endfor%}
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="form-group">
+                                    {% set class = '' %}
+                                    {% if not form.capacity.vars.valid %}
+                                        {% set class = 'has-error' %}
+                                    {% endif %}
+                                    <input type="text" class="form-control" id="{{ form.capacity.vars.id}}" name="{{ form.capacity.vars.full_name }}" value="{{ form.capacity.vars.value }}" placeholder="Taille">
+
+                                    {% do form.capacity.setRendered %}
+
+                                    {% if not form.capacity.vars.valid %}
+                                        {% for error in form.capacity.vars.errors %}
+                                            <p class="help-block">{{ error.message }}</p>
+                                        {% endfor%}
+                                    {% endif %}
+
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Créer</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

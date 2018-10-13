@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Unedic Classe{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="{{ path('homepage') }}">Unedic Class</a>
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Unedic Classe</a>
 
                 </div>
 
@@ -34,6 +34,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path('formCreateDp') }}">Création d'une classe</a></li>
                         <li><a href="{{ path('formCreate') }}">Création d'un élève</a></li>
                         <li><a href="{{ path('getStudents') }}">Liste des élèves</a></li>
                     </ul>
