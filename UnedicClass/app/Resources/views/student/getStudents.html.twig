@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading"><h3>Liste des élèves</h3></div>
 
@@ -11,12 +11,11 @@
 
                     {% for student in students %}
                     <div class="row">
-                        <p class="lead" ><a href="{{ path('getStudent', { 'numetud': student.id }) }}">{{ student.firstname }} {{ student.lastname }}</a></p>
-
-                        <div class="col-md-offset-2">
-                            <a href="{{ path('deleteStudent', { 'numetud' : student.id }) }}" class="btn btn-danger btn-sm" style="float:left;" role="button"><i class="fa fa-trash" style="color:white;"></i> Supprimer l'élève</a>
-                            <a href="{{ path('editStudent', { 'numetud': student.id }) }}" class="btn btn-warning btn-sm" style="float:left;" role="button"><i class="fa fa-pencil" style="color:white;"></i> Modifier l'élève</a>
-                        </div>
+                        <p class="lead" >
+                            <a href="{{ path('getStudent', { 'numetud': student.id }) }}">{{ student.firstname }} {{ student.lastname }}</a>
+                            <a href="{{ path('deleteStudent', { 'numetud' : student.id }) }}" class="btn btn-danger btn-sm" style="float:right;" role="button"><i class="fa fa-trash" style="color:white;"></i></a>
+                            <a href="{{ path('editStudent', { 'numetud': student.id }) }}" class="btn btn-warning btn-sm" style="float:right;" role="button"><i class="fa fa-pencil"></i></a>
+                        </p>
                     </div><hr>
                     {% endfor %}  
                 </div>
