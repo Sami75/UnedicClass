@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><h3>Création d'un élève</h3></div>
+                <div class="panel-heading"><h3>Edition de l'élève {{ student.firstname }} {{ student.lastname }}</h3></div>
 
                 <div class="panel-body text-center">
                     <div class="container">
@@ -19,7 +19,7 @@
                                     {% if not form.firstname.vars.valid %}
                                         {% set class = 'has-error' %}
                                     {% endif %}
-                                    <input type="text" class="form-control" id="{{ form.firstname.vars.id}}" name="{{ form.firstname.vars.full_name }}" value="{{ form.firstname.vars.value }}" placeholder="Prénom" >
+                                    <input type="text" class="form-control" id="{{ form.firstname.vars.id}}" name="{{ form.firstname.vars.full_name }}" value="{{ form.firstname.vars.value }}" placeholder="{{ student.firstname }}" >
 
                                     {% do form.firstname.setRendered %}
 
@@ -36,7 +36,7 @@
                                     {% if not form.lastname.vars.valid %}
                                         {% set class = 'has-error' %}
                                     {% endif %}
-                                    <input type="text" class="form-control" id="{{ form.lastname.vars.id}}" name="{{ form.lastname.vars.full_name }}" value="{{ form.lastname.vars.value }}" placeholder="Nom">
+                                    <input type="text" class="form-control" id="{{ form.lastname.vars.id}}" name="{{ form.lastname.vars.full_name }}" value="{{ form.lastname.vars.value }}" placeholder="{{ student.lastname }}">
 
                                     {% do form.lastname.setRendered %}
 
@@ -47,7 +47,7 @@
                                     {% endif %}
 
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block">Créer</button>
+                                <button type="submit" class="btn btn-primary btn-block">Editer</button>
                                 {{ form_end(form) }}
                             </div>
                         </div>

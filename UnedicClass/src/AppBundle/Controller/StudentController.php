@@ -17,22 +17,16 @@ class StudentController extends Controller
     public function formCreate(Request $request)
     {
         $student = new Student();
-        $student->setFirstName('Prenom de l\'élève');
-        $student->setLastName('Nom de l\'élève');
 
         $form = $this->createFormBuilder($student)
-        ->add('firstname', TextType::class, array('label' => 'Prénom'))
-        ->add('lastname', TextType::class, array('label' => 'Nom'))
-        ->add('save', SubmitType::class, array('label' => 'Créer'))
+        ->add('firstname', TextType::class)
+        ->add('lastname', TextType::class)
         ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $student = $form->getData();
-            $rand1=random_int(10000, 32767);
-            $rand2=random_int(10000, 32767);
-            $student->setNumEtud($rand1.$rand2);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($student);
             $entityManager->flush();
@@ -42,6 +36,79 @@ class StudentController extends Controller
 
         return $this->render('student/formCreate.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/getStudents", name="getStudents")
+     */
+    public function getStudents()
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Student::class);
+        $students = $repository->findAll();
+        return $this->render('student/getStudents.html.twig', array(
+            'students' => $students,
+        ));
+    }
+
+    /**
+     * @Route("/getStudent/{numetud}", name="getStudent")
+     */
+    public function getStudent($numetud)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Student::class);
+        $student = $repository->find($numetud);
+        return $this->render('student/getStudent.html.twig', array(
+            'student' => $student,
+        ));
+    }
+
+    /**
+     * @Route("/deleteStudent/{numetud}", name="deleteStudent")
+     */
+    public function deleteStudent($numetud)
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $student = $this->getDoctrine()->getRepository(Student::class)->find($numetud);
+
+        $entityManager->remove($student);
+        $entityManager->flush();
+
+        $students = $this->getDoctrine()->getRepository(Student::class)->findAll();
+
+        return $this->redirectToRoute('getStudents', array(
+            'students' => $students,
+        ));
+    }
+
+    /**
+     * @Route("/editStudent/{numetud}", name="editStudent")
+     */
+    public function editStudent(Request $request, $numetud)
+    {
+
+        $student = $this->getDoctrine()->getRepository(Student::class)->find($numetud);
+
+        $form = $this->createFormBuilder($student)
+        ->add('firstname', TextType::class)
+        ->add('lastname', TextType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('getStudents');
+        }
+
+        return $this->render('student/editStudent.html.twig', array(
+            'student' => $student, 'form' => $form->createView(),
         ));
     }
 }

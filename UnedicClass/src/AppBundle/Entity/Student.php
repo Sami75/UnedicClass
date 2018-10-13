@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Student
@@ -15,9 +16,10 @@ class Student
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="NumEtud", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="AppBundle\Doctrine\RandomIdGenerator")
      */
     private $id;
 
@@ -25,6 +27,8 @@ class Student
      * @var string
      *
      * @ORM\Column(name="FirstName", type="string", length=25)
+     *
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $firstName;
 
@@ -32,16 +36,10 @@ class Student
      * @var string
      *
      * @ORM\Column(name="LastName", type="string", length=25)
+     *
+     * @Assert\NotBlank(message="Le nom est obligatoire")
      */
     private $lastName;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="NumEtud", type="integer", unique=true)
-     */
-    private $numEtud;
-
 
     /**
      * Get id
@@ -99,30 +97,6 @@ class Student
     public function getLastName()
     {
         return $this->lastName;
-    }
-
-    /**
-     * Set numEtud
-     *
-     * @param integer $numEtud
-     *
-     * @return Student
-     */
-    public function setNumEtud($numEtud)
-    {
-        $this->numEtud = $numEtud;
-
-        return $this;
-    }
-
-    /**
-     * Get numEtud
-     *
-     * @return int
-     */
-    public function getNumEtud()
-    {
-        return $this->numEtud;
     }
 }
 
