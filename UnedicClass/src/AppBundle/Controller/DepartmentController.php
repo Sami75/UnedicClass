@@ -98,7 +98,7 @@ class DepartmentController extends FosRestController
             return $this->handleView($view);
         }
         else {
-            $this->addFlash('info', 'Aucune classe n\'a été pour le moment créée. <a href="{{ path(formCreateDp) }}">Cliquez ici pour en créer</a>');
+            $this->addFlash('info', 'Aucune classe n\'a été pour le moment créée.');
             $view = $this->view($departments, 404)
             ->setTemplate("department/getDepartments.html.twig")
             ->setTemplateVar("departments")
@@ -149,7 +149,6 @@ class DepartmentController extends FosRestController
         }
         else {
             $department = $this->getDoctrine()->getRepository(Department::class)->find($numclasse);
-
             $view = $this->view($department, 404)
             ->setTemplate("department/noStudents.html.twig")
             ->setTemplateVar("department")

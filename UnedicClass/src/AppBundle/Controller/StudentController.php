@@ -109,10 +109,17 @@ class StudentController extends Controller
 
         $repository = $this->getDoctrine()->getRepository(Student::class);
         $students = $repository->findAll();
+        if(count($students) > 0) {
+           return $this->render('student/getStudents.html.twig', array(
+            'students' => $students,
+        ));
+       } else {
+        $this->addFlash('info', 'Aucun élève n\'a été pour le moment créé.');
         return $this->render('student/getStudents.html.twig', array(
             'students' => $students,
         ));
     }
+}
 
     /**
      *
