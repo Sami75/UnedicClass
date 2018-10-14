@@ -19,7 +19,7 @@ class Student
      * @Assert\NotBlank(message="La classe  est obligatoire")
      *
      */
-    private $department;
+    public $department;
 
     /**
      * @var int

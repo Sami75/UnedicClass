@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Liste des classes</h3></div>
+
+                    <div class="panel-body panelDesign">
+
+                        {% for department in departments %}
+                            <div class="row">
+                                <p class="lead" >
+                                    <a href="getDepartment/{{department.id}}">{{ department.name }}</a><br>
+                                    Capacité : {{ department.capacity }} élèves.
+                                </p>
+                            </div><hr>
+                        {% endfor %}  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

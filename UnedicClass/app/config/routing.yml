@@ -1,3 +1,20 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+get_departments:
+    pattern:  /getDepartments
+    defaults: { _controller: AppBundle:Department:getDepartments, _format: ~ }
+    requirements:
+        _method: GET
+
+get_department:
+    pattern:  /getDepartment/{numclasse}
+    defaults: { _controller: AppBundle:Department:getDepartment, _format: ~ }
+    requirements:
+        _method: GET
+        numclasse: "\d+"
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc  

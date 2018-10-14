@@ -5,17 +5,14 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Liste des élèves</h3></div>
+                    <div class="panel-heading"><h3>{{ students[0].getDepartment().name }} - {{ students|length }}/{{ students[0].getDepartment().capacity }} élèves.</h3></div>
 
                     <div class="panel-body panelDesign">
 
                         {% for student in students %}
                             <div class="row">
-                                <p class="lead" >
+                                <p class="lead">
                                     <a href="{{ path('getStudent', { 'numetud': student.id }) }}">{{ student.firstname }} {{ student.lastname }}</a>
-                                    <a href="{{ path('deleteStudent', { 'numetud' : student.id }) }}" class="btn btn-danger btn-sm" style="float:right;" role="button"><i class="fa fa-trash" style="color:white;"></i></a>
-                                    <a href="{{ path('editStudent', { 'numetud': student.id }) }}" class="btn btn-warning btn-sm" style="float:right;" role="button"><i class="fa fa-pencil"></i></a><br>
-                                    {{ student.getDepartment().name }}
                                 </p>
                             </div><hr>
                         {% endfor %}  

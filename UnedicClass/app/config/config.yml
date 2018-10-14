@@ -64,3 +64,18 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+#FosRest Configuration
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        formats: { json: true, xml: false, rss: false }
+        view_response_listener: true
+    serializer:
+        serialize_null: true
+    routing_loader:
+        default_format: json
+
+#Nelmio Configuration
+nelmio_api_doc: ~    

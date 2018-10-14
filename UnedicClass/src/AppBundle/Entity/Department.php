@@ -31,7 +31,7 @@ class Department
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @var string
@@ -51,7 +51,7 @@ class Department
      * @Assert\NotBlank(message="La taile de la classe est obligatoire")
      *
      */
-    private $capacity;
+    public $capacity;
 
 
     /**
