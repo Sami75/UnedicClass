@@ -41,7 +41,7 @@ class Department
      * @Assert\NotBlank(message="Le nom est obligatoire")
      *
      */
-    private $name;
+    public $name;
 
     /**
      * @var int

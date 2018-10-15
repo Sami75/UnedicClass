@@ -45,7 +45,11 @@ class DepartmentController extends FosRestController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $repository = $this->getDoctrine()->getRepository(Department::class);
+        $dpexist = $repository->findBy(
+            array('name' => $form->getData()->name));
+
+        if ($form->isSubmitted() && $form->isValid() && !reset($dpexist)) {
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
@@ -53,15 +57,23 @@ class DepartmentController extends FosRestController
 
             $this->addFlash('success', 'La classe a bien été créée.');
 
-            return $this->redirectToRoute('homepage');
+            return $this->render('department/formCreateDp.html.twig', array('form' => $form->createView()));
         }
-        else if($form->isSubmitted()){
+        else if($form->isSubmitted()) {
 
-            $this->addFlash('danger', 'La saisie du formulaire comporte des erreurs, veuillez les corriger s\'il vous plaît.');
+            if(reset($dpexist)) {
+                $this->addFlash('danger', 'Vous avez tenté de créer une classe déjà existante.');
 
-            return $this->render('department/formCreateDp.html.twig', array(
-                'form' => $form->createView(),
-            )); 
+                return $this->render('department/formCreateDp.html.twig', array(
+                    'form' => $form->createView(),
+                )); 
+            } else {
+                $this->addFlash('danger', 'La saisie du formulaire comporte des erreurs, veuillez les corriger s\'il vous plaît.');
+
+                return $this->render('department/formCreateDp.html.twig', array(
+                    'form' => $form->createView(),
+                )); 
+            }
         }          
 
         return $this->render('department/formCreateDp.html.twig', array(

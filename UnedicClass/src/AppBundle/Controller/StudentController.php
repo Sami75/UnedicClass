@@ -76,7 +76,9 @@ class StudentController extends Controller
 
                 $this->addFlash('success', 'L\'élève a bien été créé.');
 
-                return $this->redirectToRoute('homepage');
+                return $this->render('student/formCreate.html.twig', array(
+                    'form' => $form->createView(), 'departments' => $departments,
+                ));
             }
 
 
